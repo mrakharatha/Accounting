@@ -1,8 +1,31 @@
-﻿
+﻿@using Accounting.Application.Utilities
+@using Accounting.Application.Interfaces
+@inject IPermissionService PermissionService;
+
 
 <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
     <li class=" nav-item">
         <a asp-controller="Home" asp-action="Index"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
     </li>
-    
+    @if (PermissionService.CheckPermission(2, User.GetUserId()))
+    {
+        <li class=" nav-item">
+            <a href="#"><i class="menu-livicon" data-icon="gears"></i><span class="menu-title" data-i18n="Charts"> تنظییمات</span></a>
+            <ul class="menu-content">
+                @if (PermissionService.CheckPermission(3, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="User" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">کاربران</span></a>
+                    </li>
+                }
+                @if (PermissionService.CheckPermission(7, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="Role" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">دسترسی ها</span></a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+
 </ul>
