@@ -21,8 +21,8 @@ namespace Accounting.Domain.Models.Permissions
         #region Relations
 
         [ForeignKey("ParentId")]
-        public List<Permission> Permissions { get; set; }
-        public List<RolePermission> RolePermission { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
+        public ICollection<RolePermission> RolePermission { get; set; }
 
         #endregion
     }

@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Accounting.Domain.Models.Users;
 
-namespace Accounting.Domain.Models.Permissions
+namespace Accounting.Domain.Models.Menus
 {
-
-    public class Role
+    public class GroupMenu
     {
-        [Key] public int RoleId { get; set; }
+        [Key]
+        public int GroupMenuId { get; set; }
 
-        [Display(Name = "عنوان نقش")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public int UserId { get; set; }
+
+        [Display(Name = "عنوان")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
-        public string RoleTitle { get; set; }
+        public string Title { get; set; }
 
         [Display(Name = "توضیحات")]
-        [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+
         public string Description { get; set; }
+
 
         [Display(Name = "تاریخ ثبت")]
         public DateTime CreateDate { get; set; } = DateTime.Now;
@@ -26,14 +28,10 @@ namespace Accounting.Domain.Models.Permissions
         [Display(Name = "تاریخ حذف")]
         public DateTime? DeleteDate { get; set; }
 
-
         #region Relations
 
-        public ICollection<RolePermission> RolePermission { get; set; }
-        public ICollection<UserRole> UserRoles { get; set; }
+        public User User { get; set; }
 
         #endregion
-
     }
-
 }

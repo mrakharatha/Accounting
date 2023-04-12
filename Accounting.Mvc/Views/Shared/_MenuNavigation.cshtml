@@ -7,6 +7,21 @@
     <li class=" nav-item">
         <a asp-controller="Home" asp-action="Index"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
     </li>
+
+    @if (PermissionService.CheckPermission(12, User.GetUserId()))
+    {
+        <li class=" nav-item">
+            <a href="#"><i class="menu-livicon" data-icon="check"></i><span class="menu-title" data-i18n="Charts"> تعاریف</span></a>
+            <ul class="menu-content">
+                @if (PermissionService.CheckPermission(13, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="Customer" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">مشتریان</span></a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
     @if (PermissionService.CheckPermission(2, User.GetUserId()))
     {
         <li class=" nav-item">

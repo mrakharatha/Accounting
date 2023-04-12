@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Accounting.Application.Utilities;
+using Accounting.Domain.Models.Customers;
+using Accounting.Domain.Models.Menus;
 using Accounting.Domain.Models.Permissions;
 using Accounting.Domain.Models.Users;
 using Accounting.Infra.Data.Seeder;
@@ -22,8 +24,8 @@ namespace Accounting.Infra.Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
-
-
+        public DbSet<Customer> Customers { get; set; }
+        public GroupMenu GroupMenu { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
@@ -42,8 +44,10 @@ namespace Accounting.Infra.Data.Context
 
             modelBuilder.Entity<Role>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<User>().HasQueryFilter(c => c.DeleteDate == null);
+            modelBuilder.Entity<Customer>().HasQueryFilter(c => c.DeleteDate == null);
+            modelBuilder.Entity<GroupMenu>().HasQueryFilter(c => c.DeleteDate == null);
 
-           
+
 
         }
 

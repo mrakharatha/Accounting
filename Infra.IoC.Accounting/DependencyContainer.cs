@@ -14,10 +14,11 @@ namespace Infra.IoC.Accounting
             service.AddScoped<IPermissionService, PermissionService>();
             service.AddScoped<IPermissionRepository, PermissionRepository>();
 
-
-
             service.AddScoped<IUserService, UserService>();
             service.AddScoped<IUserRepository, UserRepository>();
+
+            service.AddScoped<ICustomerService,CustomerService>();
+            service.AddScoped<ICustomerRepository,CustomerRepository>();
         }
     }
 }

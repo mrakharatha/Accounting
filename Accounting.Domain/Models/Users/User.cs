@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Accounting.Domain.Models.Customers;
+using Accounting.Domain.Models.Menus;
 
 namespace Accounting.Domain.Models.Users
 {
@@ -29,15 +31,19 @@ namespace Accounting.Domain.Models.Users
         [Display(Name = "وضعیت")] public bool IsActive { get; set; }
 
 
-        [Display(Name = "تاریخ ثبت")] public DateTime CreateDate { get; set; } = DateTime.Now;
-        [Display(Name = "تاریخ ویرایش")] public DateTime? UpdateDate { get; set; }
-        [Display(Name = "تاریخ حذف")] public DateTime? DeleteDate { get; set; }
+        [Display(Name = "تاریخ ثبت")]
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        [Display(Name = "تاریخ ویرایش")]
+        public DateTime? UpdateDate { get; set; }
+        [Display(Name = "تاریخ حذف")]
+        public DateTime? DeleteDate { get; set; }
 
 
         #region Relations
 
-        public List<UserRole> UserRoles { get; set; }
-
+        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<Customer> Customers { get; set; }
+        public ICollection<GroupMenu>  GroupMenus  { get; set; }
         #endregion
 
     }

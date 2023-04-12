@@ -1,4 +1,4 @@
-﻿using Accounting.Mvc.Models;
+﻿using Accounting.Application.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,23 +6,31 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Accounting.Application.Interfaces;
 
 namespace Accounting.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+     private  readonly IPermissionService _permissionService;
 
-        public HomeController(ILogger<HomeController> logger)
+       public HomeController(IPermissionService permissionService)
+       {
+           _permissionService = permissionService;
+       }
+
+       public IActionResult Index()
         {
-            _logger = logger;
+            if (_permissionService.CheckPermission(1, User.GetUserId()))
+                return View();
+
+            return RedirectToAction("IndexNotPermission");
         }
 
-        public IActionResult Index()
+        public IActionResult IndexNotPermission()
         {
             return View();
         }
 
-       
     }
 }
