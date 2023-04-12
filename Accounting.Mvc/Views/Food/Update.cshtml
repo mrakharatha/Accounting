@@ -1,0 +1,113 @@
+﻿@using Accounting.Application.Utilities
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Accounting.Application.Interfaces
+@model Accounting.Domain.Models.Menus.Food
+@inject IGroupMenuService GroupMenuService
+@{
+    ViewData["Title"] = "ویرایش غذا";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Food" asp-action="Index">لیست غذا</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">ویرایش غذا</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12 col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">ویرایش غذا</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form class="form form-vertical" method="post">
+                    <input type="hidden" asp-for="UserId" value="@User.GetUserId()" />
+                    <input type="hidden" asp-for="FoodId"  />
+                    <input type="hidden" asp-for="CreateDate" />
+                    <div class="form-body">
+
+                        <div class=" col-12">
+                            <label asp-for="GroupMenuId"></label>
+                            <div class="form-group">
+                                <select asp-for="GroupMenuId" class="select2 form-control" asp-items="@GroupMenuService.GetSelectListItem()">
+                                </select>
+                                <span asp-validation-for="GroupMenuId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <div class="position-relative has-icon-left">
+                                    <input autocomplete="off" type="text" class="form-control" asp-for="Title">
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Price"></label>
+                                <div class="position-relative has-icon-left">
+                                    <input autocomplete="off" type="number" class="form-control" asp-for="Price">
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <div class="position-relative has-icon-left">
+                                    <textarea rows="6" autocomplete="off" class="form-control" asp-for="Description"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Customstyles
+    {
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
+}
+
+@section Script
+    {
+
+    <script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="/assets/js/scripts/forms/select/form-select2.js"></script>
+}

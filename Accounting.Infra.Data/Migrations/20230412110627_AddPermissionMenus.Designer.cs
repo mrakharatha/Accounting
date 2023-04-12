@@ -4,14 +4,16 @@ using Accounting.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Accounting.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230412110627_AddPermissionMenus")]
+    partial class AddPermissionMenus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,49 +62,6 @@ namespace Accounting.Infra.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Accounting.Domain.Models.Menus.Food", b =>
-                {
-                    b.Property<int>("FoodId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("GroupMenuId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(20,0)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FoodId");
-
-                    b.HasIndex("GroupMenuId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Foods");
-                });
-
             modelBuilder.Entity("Accounting.Domain.Models.Menus.GroupMenu", b =>
                 {
                     b.Property<int>("GroupMenuId")
@@ -135,6 +94,49 @@ namespace Accounting.Infra.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GroupMenus");
+                });
+
+            modelBuilder.Entity("Accounting.Domain.Models.Menus.Menu", b =>
+                {
+                    b.Property<int>("MenuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GroupMenuId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MenuId");
+
+                    b.HasIndex("GroupMenuId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("Accounting.Domain.Models.Permissions.Permission", b =>
@@ -308,25 +310,25 @@ namespace Accounting.Infra.Data.Migrations
                         {
                             PermissionId = 26,
                             ParentId = 17,
-                            Title = "غذا"
+                            Title = "منو"
                         },
                         new
                         {
                             PermissionId = 27,
                             ParentId = 26,
-                            Title = "افزودن غذا"
+                            Title = "افزودن منو"
                         },
                         new
                         {
                             PermissionId = 28,
                             ParentId = 26,
-                            Title = "ویرایش غذا "
+                            Title = "ویرایش منو "
                         },
                         new
                         {
                             PermissionId = 29,
                             ParentId = 26,
-                            Title = "حذف غذا"
+                            Title = "حذف منو"
                         });
                 });
 
@@ -499,25 +501,6 @@ namespace Accounting.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Accounting.Domain.Models.Menus.Food", b =>
-                {
-                    b.HasOne("Accounting.Domain.Models.Menus.GroupMenu", "GroupMenu")
-                        .WithMany("Foods")
-                        .HasForeignKey("GroupMenuId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Accounting.Domain.Models.Users.User", "User")
-                        .WithMany("Foods")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("GroupMenu");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Accounting.Domain.Models.Menus.GroupMenu", b =>
                 {
                     b.HasOne("Accounting.Domain.Models.Users.User", "User")
@@ -525,6 +508,25 @@ namespace Accounting.Infra.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Accounting.Domain.Models.Menus.Menu", b =>
+                {
+                    b.HasOne("Accounting.Domain.Models.Menus.GroupMenu", "GroupMenu")
+                        .WithMany("Menus")
+                        .HasForeignKey("GroupMenuId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Accounting.Domain.Models.Users.User", "User")
+                        .WithMany("Menus")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("GroupMenu");
 
                     b.Navigation("User");
                 });
@@ -587,7 +589,7 @@ namespace Accounting.Infra.Data.Migrations
 
             modelBuilder.Entity("Accounting.Domain.Models.Menus.GroupMenu", b =>
                 {
-                    b.Navigation("Foods");
+                    b.Navigation("Menus");
                 });
 
             modelBuilder.Entity("Accounting.Domain.Models.Permissions.Permission", b =>
@@ -608,9 +610,9 @@ namespace Accounting.Infra.Data.Migrations
                 {
                     b.Navigation("Customers");
 
-                    b.Navigation("Foods");
-
                     b.Navigation("GroupMenus");
+
+                    b.Navigation("Menus");
 
                     b.Navigation("RawMaterials");
 

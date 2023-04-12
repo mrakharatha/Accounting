@@ -27,6 +27,7 @@ namespace Accounting.Infra.Data.Context
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<GroupMenu> GroupMenus { get; set; }
+        public DbSet<Food> Foods { get; set; }
         public DbSet<RawMaterial> RawMaterials { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +50,7 @@ namespace Accounting.Infra.Data.Context
             modelBuilder.Entity<Customer>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<GroupMenu>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<RawMaterial>().HasQueryFilter(c => c.DeleteDate == null);
+            modelBuilder.Entity<Food>().HasQueryFilter(c => c.DeleteDate == null);
 
 
 

@@ -46,6 +46,8 @@ namespace Accounting.Domain.Models.Users
         public ICollection<Customer> Customers { get; set; }
         public ICollection<GroupMenu>  GroupMenus  { get; set; }
         public ICollection<RawMaterial> RawMaterials { get; set; }
+        public ICollection<Food> Foods { get; set; }
+
         #endregion
 
     }

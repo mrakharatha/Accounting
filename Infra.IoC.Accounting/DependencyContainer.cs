@@ -23,6 +23,9 @@ namespace Infra.IoC.Accounting
             service.AddScoped<IGroupMenuService, GroupMenuService>();
             service.AddScoped<IGroupMenuRepository, GroupMenuRepository>();
 
+            service.AddScoped<IFoodService, FoodService>();
+            service.AddScoped<IFoodRepository, FoodRepository>();
+
             service.AddScoped<IRawMaterialService, RawMaterialService>();
             service.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
         }

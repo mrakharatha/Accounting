@@ -29,6 +29,12 @@
                                     <a asp-controller="GroupMenu" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">گروه منو</span></a>
                                 </li>
                             }
+                            @if (PermissionService.CheckPermission(29, User.GetUserId()))
+                            {
+                                <li>
+                                    <a asp-controller="Food" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">غذا</span></a>
+                                </li>
+                            }
                         </ul>
                     </li>
 

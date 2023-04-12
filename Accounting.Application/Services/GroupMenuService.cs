@@ -53,7 +53,15 @@ namespace Accounting.Application.Services
 
         public List<SelectListItem> GetSelectListItem()
         {
-            return _groupMenuRepository.GetSelectListItem();
+            var result = _groupMenuRepository.GetSelectListItem();
+
+            var items = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value = null, Text = "لطفا انتخاب کنید" }
+            };
+
+            items.AddRange(result);
+            return items;
         }
     }
 }

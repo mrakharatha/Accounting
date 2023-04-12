@@ -1,24 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Accounting.Domain.Models.Users;
 
 namespace Accounting.Domain.Models.Menus
 {
-    public class GroupMenu
+    public class Food
     {
         [Key]
-        public int GroupMenuId { get; set; }
+        public int FoodId { get; set; }
 
         public int UserId { get; set; }
+
+        [Display(Name = "گروه منو")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public int? GroupMenuId { get; set; }
 
         [Display(Name = "عنوان")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
         public string Title { get; set; }
 
-        [Display(Name = "توضیحات")]
+        [Display(Name = "قیمت")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
+        public ulong Price { get; set; }
 
+        [Display(Name = "توضیحات")]
         public string Description { get; set; }
 
 
@@ -31,8 +38,10 @@ namespace Accounting.Domain.Models.Menus
 
         #region Relations
 
-        public User User { get; set; }
-        public ICollection<Food> Foods { get; set; }
+        public GroupMenu GroupMenu { get; set; }
+        public User User  { get; set; }
+
         #endregion
+
     }
 }
