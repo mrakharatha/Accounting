@@ -19,6 +19,9 @@ namespace Infra.IoC.Accounting
 
             service.AddScoped<ICustomerService,CustomerService>();
             service.AddScoped<ICustomerRepository,CustomerRepository>();
+
+            service.AddScoped<IGroupMenuService, GroupMenuService>();
+            service.AddScoped<IGroupMenuRepository, GroupMenuRepository>();
         }
     }
 }

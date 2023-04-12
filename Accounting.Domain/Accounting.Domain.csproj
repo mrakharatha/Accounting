@@ -11,5 +11,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\Menus\" />
+	  <Folder Include="Models\RawMaterials\" />
 	</ItemGroup>
 </Project>

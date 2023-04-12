@@ -7,100 +7,101 @@ using Accounting.Domain.Models.Users;
 using Accounting.Domain.ViewModel.Account;
 using Accounting.Domain.ViewModel.User;
 
-namespace Accounting.Application.Services{
-
-public class UserService : IUserService
+namespace Accounting.Application.Services
 {
-    private readonly IUserRepository _userRepository;
 
-    public UserService(IUserRepository userRepository)
+    public class UserService : IUserService
     {
-        _userRepository = userRepository;
-    }
+        private readonly IUserRepository _userRepository;
 
-    public List<User> GetAllUsers()
-    {
-        return _userRepository.GetAllUsers();
-    }
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
-    public bool IsExistUserName(int userId,string userName)
-    {
-        return _userRepository.IsExistUserName(userId,userName);
-    }
+        public List<User> GetAll()
+        {
+            return _userRepository.GetAll();
+        }
 
-    public void AddUser(User user)
-    {
-        user.Password = SecurityHelper.GetSha256Hash(user.Password);
-        _userRepository.AddUser(user);
-    }
+        public bool IsExistUserName(int userId, string userName)
+        {
+            return _userRepository.IsExistUserName(userId, userName);
+        }
 
-    public UserViewModel GetUserViewModel(int userId)
-    {
-        return _userRepository.GetUserViewModel(userId);
-    }
+        public void Add(User user)
+        {
+            user.Password = SecurityHelper.GetSha256Hash(user.Password);
+            _userRepository.Add(user);
+        }
 
-    public void UpdateUser(UserViewModel user)
-    {
-        var userUpdate = GetUserById(user.UserId);
-        if (userUpdate == null)
-            return;
+        public UserViewModel GetUserViewModel(int userId)
+        {
+            return _userRepository.GetUserViewModel(userId);
+        }
+
+        public void UpdateUser(UserViewModel user)
+        {
+            var userUpdate = GetById(user.UserId);
+            if (userUpdate == null)
+                return;
 
 
-        userUpdate.Name = user.Name;
-        userUpdate.IsActive = user.IsActive;
-        if (user.Password.HasValue())
-            userUpdate.Password = SecurityHelper.GetSha256Hash(user.Password);
+            userUpdate.Name = user.Name;
+            userUpdate.IsActive = user.IsActive;
+            if (user.Password.HasValue())
+                userUpdate.Password = SecurityHelper.GetSha256Hash(user.Password);
 
-        UpdateUser(userUpdate);
-    }
+            Update(userUpdate);
+        }
 
-    public void UpdateUser(User user)
-    {
-        user.UpdateDate = DateTime.Now;
-        _userRepository.UpdateUser(user);
-    }
+        public void Update(User user)
+        {
+            user.UpdateDate = DateTime.Now;
+            _userRepository.Update(user);
+        }
 
-    public User GetUserById(int userId)
-    {
-        return _userRepository.GetUserById(userId);
-    }
+        public User GetById(int userId)
+        {
+            return _userRepository.GetById(userId);
+        }
 
-    public bool DeleteUser(int userId)
-    {
-        var user = GetUserById(userId);
-        if (user == null)
-            return false;
+        public bool Delete(int userId)
+        {
+            var user = GetById(userId);
+            if (user == null)
+                return false;
 
-        user.DeleteDate = DateTime.Now;
+            user.DeleteDate = DateTime.Now;
 
-        UpdateUser(user);
+            Update(user);
 
-        return true;
-    }
+            return true;
+        }
 
-    public User LoginUser(LoginViewModel login)
-    {
-        login.Password = SecurityHelper.GetSha256Hash(login.Password);
-        login.UserName = login.UserName.Trim();
-        return _userRepository.LoginUser(login);
-    }
+        public User LoginUser(LoginViewModel login)
+        {
+            login.Password = SecurityHelper.GetSha256Hash(login.Password);
+            login.UserName = login.UserName.Trim();
+            return _userRepository.LoginUser(login);
+        }
 
-    public bool CompareOldPassword(int userId, string oldPassword)
-    {
-        var password = SecurityHelper.GetSha256Hash(oldPassword);
-        return _userRepository.CompareOldPassword(userId, password);
-    }
+        public bool CompareOldPassword(int userId, string oldPassword)
+        {
+            var password = SecurityHelper.GetSha256Hash(oldPassword);
+            return _userRepository.CompareOldPassword(userId, password);
+        }
 
-    public void ChangeUserPassword(int userId, string newPassword)
-    {
-        var user = GetUserById(userId);
+        public void ChangeUserPassword(int userId, string newPassword)
+        {
+            var user = GetById(userId);
 
-        if(user==null)
-            return;
+            if (user == null)
+                return;
 
-        var password = SecurityHelper.GetSha256Hash(newPassword);
-        user.Password = password;
-        UpdateUser(user);
-    }
+            var password = SecurityHelper.GetSha256Hash(newPassword);
+            user.Password = password;
+            Update(user);
+        }
     }
 }

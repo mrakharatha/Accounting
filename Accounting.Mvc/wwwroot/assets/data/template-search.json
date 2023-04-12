@@ -10,7 +10,7 @@
     {"name":"لیست صورتحساب ها", "url":"app-invoice-list.html","icon":"bx bx-file"},
     {"name":"صورتحساب", "url":"app-invoice.html","icon":"bx bx-file"},
     {"name":"ویرایش صورتحساب", "url":"app-invoice-edit.html","icon":"bx bx-file"},
-    {"name":"افزودن صورتحساب", "url":"app-invoice-add.html","icon":"bx bx-file"},
+    {"name":"ثبت صورتحساب", "url":"app-invoice-add.html","icon":"bx bx-file"},
     {"name":"مدیریت فایل", "url":"app-file-manager.html","icon":"bx bx-save"},
 
     {"name":"توری محتوا", "url":"content-grid.html","icon":"bx bx-repeat"},

@@ -22,7 +22,7 @@ namespace Accounting.Mvc.Controllers
         [PermissionChecker(3)]
         public IActionResult Index()
         {
-            return View(_userService.GetAllUsers());
+            return View(_userService.GetAll());
         }
 
         [PermissionChecker(4)]
@@ -50,7 +50,7 @@ namespace Accounting.Mvc.Controllers
                 return View(user);
             }
 
-            _userService.AddUser(user);
+            _userService.Add(user);
 
             _permissionService.AddUserRole(user.UserId, selectedRoles);
 
@@ -107,7 +107,7 @@ namespace Accounting.Mvc.Controllers
             if (!_permissionService.CheckPermission(6, User.GetUserId()))
                 return false;
 
-            if (_userService.DeleteUser(id))
+            if (_userService.Delete(id))
                 _permissionService.DeleteUserRole(id);
 
             return true;

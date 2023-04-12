@@ -40,7 +40,7 @@ namespace Accounting.Mvc.Controllers
                 return View(model);
 
 
-            _customerService.AddCustomer(model);
+            _customerService.Add(model);
 
             return RedirectToAction("Index");
         }
@@ -63,7 +63,7 @@ namespace Accounting.Mvc.Controllers
                 return View(model);
 
 
-            _customerService.UpdateCustomer(model);
+            _customerService.Update(model);
 
             return RedirectToAction("Index");
         }
@@ -73,7 +73,7 @@ namespace Accounting.Mvc.Controllers
             if (!_permissionService.CheckPermission(16, User.GetUserId()))
                 return false;
 
-            _customerService.DeleteCustomer(id, User.GetUserId());
+            _customerService.Delete(id, User.GetUserId());
 
             return true;
         }

@@ -19,6 +19,22 @@
                         <a asp-controller="Customer" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">مشتریان</span></a>
                     </li>
                 }
+                @if (PermissionService.CheckPermission(17, User.GetUserId()))
+                {
+                    <li><a href="#"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Second Level">منو</span></a>
+                        <ul class="menu-content">
+                            @if (PermissionService.CheckPermission(18, User.GetUserId()))
+                            {
+                                <li>
+                                    <a asp-controller="GroupMenu" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">گروه منو</span></a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                }
+                   
+                
             </ul>
         </li>
     }

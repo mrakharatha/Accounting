@@ -12,11 +12,11 @@ namespace Accounting.Application.Interfaces
     public interface ICustomerService
     {
         Task<DtResult<CustomerViewModel>> GetData(DtParameters dtParameters);
-        void AddCustomer(Customer customer);
-        void UpdateCustomer(Customer customer);
+        void Add(Customer customer);
+        void Update(Customer customer);
         bool IsPhoneNumberExist(int customerId, string phoneNumber);
         Customer GetByCustomerId(int customerId);
-        void DeleteCustomer(int customerId, int userId);
-        List<SelectListItem> GetCustomer();
+        void Delete(int customerId, int userId);
+        List<SelectListItem> GetSelectListItem();
     }
 }

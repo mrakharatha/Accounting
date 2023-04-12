@@ -34,10 +34,12 @@ namespace Accounting.Infra.Data.Seeder
                 new Permission(){PermissionId = 15,Title = "ویرایش مشتری ",ParentId = 13},
                 new Permission(){PermissionId = 16,Title = "حذف مشتری",ParentId = 13},
 
-                new Permission(){PermissionId = 17,Title = "گروه منو",ParentId = 12},
-                new Permission(){PermissionId = 18,Title = "افزودن گروه منو",ParentId = 17},
-                new Permission(){PermissionId = 19,Title = "ویرایش گروه منو ",ParentId = 17},
-                new Permission(){PermissionId = 20,Title = "حذف گروه منو",ParentId = 17},
+                new Permission(){PermissionId =17,Title = "منو",ParentId = 12},
+
+                new Permission(){PermissionId = 18,Title = "گروه منو",ParentId = 17},
+                new Permission(){PermissionId = 19,Title = "افزودن گروه منو",ParentId = 18},
+                new Permission(){PermissionId = 20,Title = "ویرایش گروه منو ",ParentId = 18},
+                new Permission(){PermissionId = 21,Title = "حذف گروه منو",ParentId = 18},
 
             });
         }

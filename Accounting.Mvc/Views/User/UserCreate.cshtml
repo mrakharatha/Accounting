@@ -1,7 +1,7 @@
 ﻿@using Accounting.Domain.Models.Permissions
 @model Accounting.Domain.Models.Users.User
 @{
-    ViewData["Title"] = "افزودن کاربر";
+    ViewData["Title"] = "ثبت کاربر";
    var Roles = ViewData["Roles"] as List<Role>;
 }
 
@@ -18,7 +18,7 @@
                             <a asp-controller="User" asp-action="Index" >لیست کاربران</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="#">افزودن کاربر</a>
+                            <a href="#">ثبت کاربر</a>
                         </li>
                     </ol>
                 </div>

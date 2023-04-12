@@ -25,7 +25,7 @@ namespace Accounting.Infra.Data.Context
         public DbSet<UserRole> UserRoles { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
-        public GroupMenu GroupMenu { get; set; }
+        public DbSet<GroupMenu> GroupMenus { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()

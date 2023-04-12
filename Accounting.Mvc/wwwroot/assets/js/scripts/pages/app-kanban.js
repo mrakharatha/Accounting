@@ -136,7 +136,7 @@ $(document).ready(function () {
 	// Kanban Board
 	var KanbanExample = new jKanban({
 		element: "#kanban-wrapper", // selector of the kanban container
-		buttonContent: "+ افزودن آیتم جدید", // text or html content of the board button
+		buttonContent: "+ ثبت آیتم جدید", // text or html content of the board button
 
 		// click on current kanban-item
 		click: function (el) {

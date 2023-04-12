@@ -92,7 +92,7 @@ $(function () {
 		modules: {
 			toolbar: '.compose-quill-toolbar'
 		},
-		placeholder: 'افزودن توضیح ... ',
+		placeholder: 'ثبت توضیح ... ',
 		theme: 'snow'
 	});
 

@@ -27,15 +27,15 @@ namespace Accounting.Application.Services
         }
 
        
-        public void AddCustomer(Customer customer)
+        public void Add(Customer customer)
         {
-            _customerRepository.AddCustomer(customer);
+            _customerRepository.Add(customer);
         }
 
-        public void UpdateCustomer(Customer customer)
+        public void Update(Customer customer)
         {
             customer.UpdateDate = DateTime.Now;
-            _customerRepository.UpdateCustomer(customer);
+            _customerRepository.Update(customer);
         }
 
 
@@ -50,7 +50,7 @@ namespace Accounting.Application.Services
         }
 
 
-        public void DeleteCustomer(int customerId, int userId)
+        public void Delete(int customerId, int userId)
         {
             var customer = GetByCustomerId(customerId);
 
@@ -60,12 +60,12 @@ namespace Accounting.Application.Services
             customer.DeleteDate = DateTime.Now;
             customer.UserId = userId;
 
-            UpdateCustomer(customer);
+            Update(customer);
         }
 
-        public List<SelectListItem> GetCustomer()
+        public List<SelectListItem> GetSelectListItem()
         {
-            var result = _customerRepository.GetCustomer();
+            var result = _customerRepository.GetSelectListItem();
 
             var items = new List<SelectListItem>()
             {

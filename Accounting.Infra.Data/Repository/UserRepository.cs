@@ -24,7 +24,7 @@ namespace Accounting.Infra.Data.Repository
             return _context.Users.SingleOrDefault(u => u.UserName == login.UserName && u.Password == login.Password);
         }
 
-        public List<User> GetAllUsers()
+        public List<User> GetAll()
         {
             return _context.Users
                 .Where(x => x.UserId != 1)
@@ -33,13 +33,10 @@ namespace Accounting.Infra.Data.Repository
 
         public bool IsExistUserName(int userId, string userName)
         {
-            if (userId == 0)
-                return _context.Users.Any(x => x.UserName == userName);
-
-            return _context.Users.Any(x => x.UserName == userName && x.UserId != userId);
+            return userId == 0 ? _context.Users.Any(x => x.UserName == userName) : _context.Users.Any(x => x.UserName == userName && x.UserId != userId);
         }
 
-        public void AddUser(User user)
+        public void Add(User user)
         {
             _context.Add(user);
             _context.SaveChanges();
@@ -63,7 +60,7 @@ namespace Accounting.Infra.Data.Repository
 
         }
 
-        public void UpdateUser(User user)
+        public void Update(User user)
         {
 
             _context.Update(user);
@@ -76,7 +73,7 @@ namespace Accounting.Infra.Data.Repository
 
         }
 
-        public User GetUserById(int userId)
+        public User GetById(int userId)
         {
             return _context.Users.Find(userId);
         }

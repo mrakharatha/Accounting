@@ -65,13 +65,13 @@ namespace Accounting.Infra.Data.Repository
             return customerId == 0 ? _context.Customers.Any(x => x.PhoneNumber.Equals(phoneNumber)) : _context.Customers.Any(x => x.PhoneNumber.Equals(phoneNumber) && x.CustomerId != customerId);
         }
 
-        public void AddCustomer(Customer customer)
+        public void Add(Customer customer)
         {
             _context.Add(customer);
             _context.SaveChanges();
         }
 
-        public void UpdateCustomer(Customer customer)
+        public void Update(Customer customer)
         {
             _context.Update(customer);
             _context.SaveChanges();
@@ -82,7 +82,7 @@ namespace Accounting.Infra.Data.Repository
             return _context.Customers.Find(customerId);
         }
 
-        public List<SelectListItem> GetCustomer()
+        public List<SelectListItem> GetSelectListItem()
         {
             return _context.Customers
                 .OrderByDescending(x => x.CustomerId)

@@ -1,8 +1,9 @@
 ﻿@using Accounting.Domain.Convertors
-@model List<Accounting.Domain.Models.Users.User>
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<Accounting.Domain.Models.Menus.GroupMenu>
 @{
 
-    ViewData["Title"] = "کاربران";
+    ViewData["Title"] = "گروه منو";
     int cnt = 1;
 }
 
@@ -17,7 +18,7 @@
                             <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item active">
-                            لیست کاربران
+                            لیست گروه منو
                         </li>
                     </ol>
                 </div>
@@ -37,7 +38,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a asp-controller="User" asp-action="UserCreate"  type="button" class="btn btn-primary round mr-1 mb-1">ثبت</a>
+                    <a asp-controller="GroupMenu" asp-action="Create"  type="button" class="btn btn-primary round mr-1 mb-1">ثبت</a>
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
@@ -46,8 +47,7 @@
                                 <thead>
                                     <tr>
                                         <th>ردیف</th>
-                                        <th>نام و نام خانوادگی</th>
-                                        <th>نام کاربری</th>
+                                        <th>عنوان</th>
                                         <th>تاریخ ثبت</th>
                                         <th>عملیات</th>
                                     </tr>
@@ -55,18 +55,17 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="User_@(item.UserId)">
+                                        <tr id="GroupMenu_@(item.GroupMenuId)">
                                             <td>@cnt</td>
-                                            <td>@item.Name</td>
-                                            <td>@item.UserName</td>
+                                            <td>@item.Title</td>
                                             <td>@item.CreateDate.ToShamsi()</td>
                                             <td>
                                                 <div class="dropup">
                                                     <span style="padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
                                                     </span>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" asp-controller="User" asp-action="UserEdit"  asp-route-id="@item.UserId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
-                                                        <a class="dropdown-item" onclick="DeleteUser(@item.UserId)"><i class="bx bx-trash mr-1"></i> حذف</a>
+                                                        <a class="dropdown-item" asp-controller="GroupMenu" asp-action="Update"  asp-route-id="@item.GroupMenuId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+                                                        <a class="dropdown-item" onclick="DeleteGroupMenu(@item.GroupMenuId)"><i class="bx bx-trash mr-1"></i> حذف</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -108,7 +107,8 @@
 
 
 <script type="text/javascript">
-    function DeleteUser(id) {
+    function DeleteGroupMenu(id) {
+
 
         Swal.fire({
             title: 'آیا مطمئنید؟',
@@ -122,17 +122,17 @@
             buttonsStyling: false,
         }).then(function (result) {
             if (result.value) {
-                $.get("/User/Delete/" + id,
+                $.get("/GroupMenu/Delete/" + id,
                     function (data)
                     {
                         if (data)
                         {
-                            $("#User_" + id).hide('slow');
+                            $("#GroupMenu_" + id).hide('slow');
 
                             Swal.fire({
                                 type: "success",
                                 title: 'حذف شد!',
-                                text: 'کاربر  با موفقیت حذف شد',
+                                text: 'گروه منو  با موفقیت حذف شد',
                                 confirmButtonClass: 'btn btn-success',
                                 confirmButtonText: 'باشه',
                             });

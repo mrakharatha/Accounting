@@ -4,14 +4,16 @@ using Accounting.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Accounting.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230412094046_AddTblGroupMenu")]
+    partial class AddTblGroupMenu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +93,7 @@ namespace Accounting.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GroupMenus");
+                    b.ToTable("GroupMenu");
                 });
 
             modelBuilder.Entity("Accounting.Domain.Models.Permissions.Permission", b =>
@@ -211,30 +213,24 @@ namespace Accounting.Infra.Data.Migrations
                         {
                             PermissionId = 17,
                             ParentId = 12,
-                            Title = "منو"
+                            Title = "گروه منو"
                         },
                         new
                         {
                             PermissionId = 18,
                             ParentId = 17,
-                            Title = "گروه منو"
-                        },
-                        new
-                        {
-                            PermissionId = 19,
-                            ParentId = 18,
                             Title = "افزودن گروه منو"
                         },
                         new
                         {
-                            PermissionId = 20,
-                            ParentId = 18,
+                            PermissionId = 19,
+                            ParentId = 17,
                             Title = "ویرایش گروه منو "
                         },
                         new
                         {
-                            PermissionId = 21,
-                            ParentId = 18,
+                            PermissionId = 20,
+                            ParentId = 17,
                             Title = "حذف گروه منو"
                         });
                 });
