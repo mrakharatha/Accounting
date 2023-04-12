@@ -1,9 +1,9 @@
 ﻿@using Accounting.Domain.Convertors
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model List<Accounting.Domain.Models.Menus.GroupMenu>
+@model List<Accounting.Domain.Models.RawMaterials.RawMaterial>
 @{
 
-    ViewData["Title"] = "گروه منو";
+    ViewData["Title"] = "مواد اولیه";
     int cnt = 1;
 }
 
@@ -18,7 +18,7 @@
                             <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item active">
-                            لیست گروه منو
+                            لیست مواد اولیه
                         </li>
                     </ol>
                 </div>
@@ -38,7 +38,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a asp-controller="GroupMenu" asp-action="Create"  type="button" class="btn btn-primary round mr-1 mb-1">افزودن</a>
+                    <a asp-controller="RawMaterial" asp-action="Create"  type="button" class="btn btn-primary round mr-1 mb-1">افزودن</a>
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
@@ -55,7 +55,7 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="GroupMenu_@(item.GroupMenuId)">
+                                        <tr id="RawMaterial_@(item.RawMaterialId)">
                                             <td>@cnt</td>
                                             <td>@item.Title</td>
                                             <td>@item.CreateDate.ToShamsi()</td>
@@ -64,8 +64,8 @@
                                                     <span style="padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
                                                     </span>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" asp-controller="GroupMenu" asp-action="Update"  asp-route-id="@item.GroupMenuId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
-                                                        <a class="dropdown-item" onclick="DeleteGroupMenu(@item.GroupMenuId)"><i class="bx bx-trash mr-1"></i> حذف</a>
+                                                        <a class="dropdown-item" asp-controller="RawMaterial" asp-action="Update"  asp-route-id="@item.RawMaterialId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+                                                        <a class="dropdown-item" onclick="DeleteRawMaterial(@item.RawMaterialId)"><i class="bx bx-trash mr-1"></i> حذف</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -107,7 +107,7 @@
 
 
 <script type="text/javascript">
-    function DeleteGroupMenu(id) {
+    function DeleteRawMaterial(id) {
 
 
         Swal.fire({
@@ -122,17 +122,17 @@
             buttonsStyling: false,
         }).then(function (result) {
             if (result.value) {
-                $.get("/GroupMenu/Delete/" + id,
+                $.get("/RawMaterial/Delete/" + id,
                     function (data)
                     {
                         if (data)
                         {
-                            $("#GroupMenu_" + id).hide('slow');
+                            $("#RawMaterial_" + id).hide('slow');
 
                             Swal.fire({
                                 type: "success",
                                 title: 'حذف شد!',
-                                text: 'گروه منو  با موفقیت حذف شد',
+                                text: 'مواد اولیه  با موفقیت حذف شد',
                                 confirmButtonClass: 'btn btn-success',
                                 confirmButtonText: 'باشه',
                             });

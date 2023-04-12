@@ -41,6 +41,11 @@ namespace Accounting.Infra.Data.Seeder
                 new Permission(){PermissionId = 20,Title = "ویرایش گروه منو ",ParentId = 18},
                 new Permission(){PermissionId = 21,Title = "حذف گروه منو",ParentId = 18},
 
+                new Permission(){PermissionId = 22,Title = "مواد اولیه",ParentId = 12},
+                new Permission(){PermissionId = 23,Title = "افزودن مواد اولیه",ParentId = 22},
+                new Permission(){PermissionId = 24,Title = "ویرایش مواد اولیه ",ParentId = 22},
+                new Permission(){PermissionId = 25,Title = "حذف مواد اولیه",ParentId = 22},
+
             });
         }
     }

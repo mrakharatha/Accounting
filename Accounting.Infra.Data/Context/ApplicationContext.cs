@@ -4,6 +4,7 @@ using Accounting.Application.Utilities;
 using Accounting.Domain.Models.Customers;
 using Accounting.Domain.Models.Menus;
 using Accounting.Domain.Models.Permissions;
+using Accounting.Domain.Models.RawMaterials;
 using Accounting.Domain.Models.Users;
 using Accounting.Infra.Data.Seeder;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace Accounting.Infra.Data.Context
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<GroupMenu> GroupMenus { get; set; }
+        public DbSet<RawMaterial> RawMaterials { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
@@ -46,6 +48,7 @@ namespace Accounting.Infra.Data.Context
             modelBuilder.Entity<User>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<Customer>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<GroupMenu>().HasQueryFilter(c => c.DeleteDate == null);
+            modelBuilder.Entity<RawMaterial>().HasQueryFilter(c => c.DeleteDate == null);
 
 
 

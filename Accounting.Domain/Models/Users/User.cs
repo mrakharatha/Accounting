@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Accounting.Domain.Models.Customers;
 using Accounting.Domain.Models.Menus;
+using Accounting.Domain.Models.RawMaterials;
 
 namespace Accounting.Domain.Models.Users
 {
@@ -44,6 +45,7 @@ namespace Accounting.Domain.Models.Users
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<Customer> Customers { get; set; }
         public ICollection<GroupMenu>  GroupMenus  { get; set; }
+        public ICollection<RawMaterial> RawMaterials { get; set; }
         #endregion
 
     }

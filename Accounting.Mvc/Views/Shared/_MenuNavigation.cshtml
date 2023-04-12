@@ -33,7 +33,12 @@
                     </li>
 
                 }
-                   
+                @if (PermissionService.CheckPermission(22, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="RawMaterial" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">مواد اولیه</span></a>
+                    </li>
+                }
                 
             </ul>
         </li>

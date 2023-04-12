@@ -1,8 +1,8 @@
 ﻿@using Accounting.Application.Utilities
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Accounting.Domain.Models.Menus.GroupMenu
+@model Accounting.Domain.Models.RawMaterials.RawMaterial
 @{
-    ViewData["Title"] = "ویرایش گروه منو";
+    ViewData["Title"] = "ویرایش مواد اولیه";
 }
 
 <div class="content-header row">
@@ -15,10 +15,10 @@
                             <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a asp-controller="GroupMenu" asp-action="Index" >لیست گروه منو</a>
+                            <a asp-controller="GroupMenu" asp-action="Index" >لیست مواد اولیه</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="#">ویرایش گروه منو</a>
+                            <a href="#">ویرایش مواد اولیه</a>
                         </li>
                     </ol>
                 </div>
@@ -32,13 +32,13 @@
 <div class="col-md-12 col-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">ویرایش گروه منو</h4>
+            <h4 class="card-title">ویرایش مواد اولیه</h4>
         </div>
         <div class="card-content">
             <div class="card-body">
                 <form class="form form-vertical" method="post">
                     <input type="hidden" asp-for="UserId" value="@User.GetUserId()"/>
-                    <input type="hidden" asp-for="GroupMenuId" />
+                    <input type="hidden" asp-for="RawMaterialId" />
                     <input type="hidden" asp-for="CreateDate"  />
                     <div class="form-body">
 
