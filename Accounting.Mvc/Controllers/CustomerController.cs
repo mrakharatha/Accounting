@@ -78,9 +78,9 @@ namespace Accounting.Mvc.Controllers
             return true;
         }
 
-        public bool IsPhoneNumberExist(string phoneNumber, int customerId)
+        public bool IsPhoneExist(string phoneNumber, int customerId)
         {
-            return !_customerService.IsPhoneNumberExist(customerId, phoneNumber);
+            return !_customerService.IsPhoneExist(customerId, phoneNumber);
         }
 
         [HttpPost]

@@ -14,7 +14,7 @@ namespace Accounting.Application.Interfaces
         Task<DtResult<CustomerViewModel>> GetData(DtParameters dtParameters);
         void Add(Customer customer);
         void Update(Customer customer);
-        bool IsPhoneNumberExist(int customerId, string phoneNumber);
+        bool IsPhoneExist(int customerId, string phone);
         Customer GetByCustomerId(int customerId);
         void Delete(int customerId, int userId);
         List<SelectListItem> GetSelectListItem();

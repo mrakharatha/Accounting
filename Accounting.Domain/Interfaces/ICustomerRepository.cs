@@ -11,7 +11,7 @@ namespace Accounting.Domain.Interfaces
     public interface ICustomerRepository
     {
         Task<DtResult<CustomerViewModel>> GetData(DtParameters dtParameters);
-        bool IsPhoneNumberExist(int customerId, string phoneNumber);
+        bool IsPhoneExist(int customerId, string phone);
         void Add(Customer customer);
         void Update(Customer customer);
         Customer GetByCustomerId(int customerId);

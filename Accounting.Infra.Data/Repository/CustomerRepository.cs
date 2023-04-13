@@ -31,7 +31,7 @@ namespace Accounting.Infra.Data.Repository
             if (!string.IsNullOrEmpty(searchBy))
             {
                 result = result.Where(x =>
-                    x.PhoneNumber.Contains(searchBy) ||
+                    x.Phone.Contains(searchBy) ||
                     x.FullName.Contains(searchBy)
                 );
             }
@@ -53,16 +53,16 @@ namespace Accounting.Infra.Data.Repository
                         CreateDate = x.CreateDate.ToShamsi(),
                         CustomerId = x.CustomerId,
                         FullName = x.FullName,
-                        PhoneNumber = x.PhoneNumber,
+                        Phone = x.Phone,
                     })
 
                     .ToListAsync()
             };
         }
 
-        public bool IsPhoneNumberExist(int customerId, string phoneNumber)
+        public bool IsPhoneExist(int customerId, string phone)
         {
-            return customerId == 0 ? _context.Customers.Any(x => x.PhoneNumber.Equals(phoneNumber)) : _context.Customers.Any(x => x.PhoneNumber.Equals(phoneNumber) && x.CustomerId != customerId);
+            return customerId == 0 ? _context.Customers.Any(x => x.Phone.Equals(phone)) : _context.Customers.Any(x => x.Phone.Equals(phone) && x.CustomerId != customerId);
         }
 
         public void Add(Customer customer)

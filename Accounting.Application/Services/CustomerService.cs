@@ -39,9 +39,9 @@ namespace Accounting.Application.Services
         }
 
 
-        public bool IsPhoneNumberExist(int customerId, string phoneNumber)
+        public bool IsPhoneExist(int customerId, string phone)
         {
-            return _customerRepository.IsPhoneNumberExist(customerId, phoneNumber);
+            return _customerRepository.IsPhoneExist(customerId, phone);
         }
 
         public Customer GetByCustomerId(int customerId)

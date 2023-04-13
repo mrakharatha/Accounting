@@ -22,11 +22,10 @@ namespace Accounting.Domain.Models.Customers
 
 
 
-        [Display(Name = "شماره موبایل")]
+        [Display(Name = "تلفن")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
-        [RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = " {0} فرمت نامناسب دارد")]
-        [Remote("IsPhoneNumberExist", "Customer", AdditionalFields = nameof(CustomerId), ErrorMessage = "{0} تکراری می باشد")]
-        public string PhoneNumber { get; set; }
+        [Remote("IsPhoneExist", "Customer", AdditionalFields = nameof(CustomerId), ErrorMessage = "{0} تکراری می باشد")]
+        public string Phone { get; set; }
 
 
         [Display(Name = "محل سکونت")] 
