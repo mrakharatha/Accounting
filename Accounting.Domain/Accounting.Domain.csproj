@@ -10,7 +10,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\Menus\" />
+	  <Folder Include="Models\Orders\" />
 	  <Folder Include="Models\RawMaterials\" />
+	  <Folder Include="ViewModel\Orders\" />
 	</ItemGroup>
 </Project>

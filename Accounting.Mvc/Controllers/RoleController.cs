@@ -25,7 +25,7 @@ namespace Accounting.Mvc.Controllers
         }
 
         [PermissionChecker(8)]
-        public IActionResult RoleCreate()
+        public IActionResult Create()
         {
             ViewData["Permissions"] = _permissionService.GetAllPermission();
 
@@ -33,7 +33,7 @@ namespace Accounting.Mvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult RoleCreate(Role role, List<int> selectedPermission)
+        public IActionResult Create(Role role, List<int> selectedPermission)
         {
             if (!ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace Accounting.Mvc.Controllers
         }
 
         [PermissionChecker(9)]
-        public IActionResult RoleEdit(int id)
+        public IActionResult Update(int id)
         {
             var role = _permissionService.GetRoleById(id);
 
@@ -66,7 +66,7 @@ namespace Accounting.Mvc.Controllers
 
         [HttpPost]
 
-        public IActionResult RoleEdit(Role role, List<int> selectedPermission)
+        public IActionResult Update(Role role, List<int> selectedPermission)
         {
             if (!ModelState.IsValid)
             {

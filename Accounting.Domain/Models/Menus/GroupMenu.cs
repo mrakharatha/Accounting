@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Accounting.Domain.Models.Orders;
 using Accounting.Domain.Models.Users;
 
 namespace Accounting.Domain.Models.Menus
@@ -33,6 +34,7 @@ namespace Accounting.Domain.Models.Menus
 
         public User User { get; set; }
         public ICollection<Food> Foods { get; set; }
+        public ICollection<OrderDetail> OrderDetails { get; set; }
         #endregion
     }
 }

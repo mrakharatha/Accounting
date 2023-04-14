@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Accounting.Domain.Models.Orders;
 using Accounting.Domain.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,8 @@ namespace Accounting.Domain.Models.Customers
         #region Relations
 
         public User User { get; set; }
+        public ICollection<Order> Orders { get; set; }
+
 
         #endregion
 

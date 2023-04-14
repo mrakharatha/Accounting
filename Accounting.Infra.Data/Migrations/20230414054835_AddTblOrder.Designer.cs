@@ -4,14 +4,16 @@ using Accounting.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Accounting.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230414054835_AddTblOrder")]
+    partial class AddTblOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,8 +158,8 @@ namespace Accounting.Infra.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("InvoiceNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("OrderPrice")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<string>("TypePrice")
                         .IsRequired()
@@ -408,29 +410,6 @@ namespace Accounting.Infra.Data.Migrations
                             PermissionId = 29,
                             ParentId = 26,
                             Title = "حذف غذا"
-                        },
-                        new
-                        {
-                            PermissionId = 30,
-                            Title = "سفارش"
-                        },
-                        new
-                        {
-                            PermissionId = 31,
-                            ParentId = 30,
-                            Title = "افزودن سفارش"
-                        },
-                        new
-                        {
-                            PermissionId = 32,
-                            ParentId = 30,
-                            Title = "ویرایش سفارش "
-                        },
-                        new
-                        {
-                            PermissionId = 33,
-                            ParentId = 30,
-                            Title = "حذف سفارش"
                         });
                 });
 

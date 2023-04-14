@@ -51,9 +51,9 @@ namespace Accounting.Application.Services
             Update(food);
         }
 
-        public List<SelectListItem> GetSelectListItem(int groupFoodId)
+        public List<SelectListItem> GetSelectListItem()
         {
-            var result = _foodRepository.GetSelectListItem(groupFoodId);
+            var result = _foodRepository.GetSelectListItem();
 
             var items = new List<SelectListItem>()
             {

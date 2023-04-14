@@ -10,6 +10,6 @@ namespace Accounting.Domain.Interfaces
         Food GetById(int foodId);
         void Add(Food food);
         void Update(Food food);
-        List<SelectListItem> GetSelectListItem(int groupFoodId);
+        List<SelectListItem> GetSelectListItem();
     }
 }

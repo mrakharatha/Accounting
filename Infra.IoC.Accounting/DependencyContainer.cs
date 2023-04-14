@@ -28,6 +28,9 @@ namespace Infra.IoC.Accounting
 
             service.AddScoped<IRawMaterialService, RawMaterialService>();
             service.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
+
+            service.AddScoped<IOrderService, OrderService>();
+            service.AddScoped<IOrderRepository, OrderRepository>();
         }
     }
 }

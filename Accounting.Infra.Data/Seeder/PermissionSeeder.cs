@@ -50,7 +50,13 @@ namespace Accounting.Infra.Data.Seeder
                 new Permission(){PermissionId = 26,Title = "غذا",ParentId = 17},
                 new Permission(){PermissionId = 27,Title = "افزودن غذا",ParentId = 26},
                 new Permission(){PermissionId = 28,Title = "ویرایش غذا ",ParentId = 26},
-                new Permission(){PermissionId = 29,Title = "حذف غذا",ParentId = 26},
+                new Permission(){PermissionId = 29,Title = "حذف غذا",ParentId = 26}, 
+                
+                
+                new Permission(){PermissionId = 30,Title = "سفارش",ParentId = null},
+                new Permission(){PermissionId = 31,Title = "افزودن سفارش",ParentId = 30},
+                new Permission(){PermissionId = 32,Title = "ویرایش سفارش ",ParentId = 30},
+                new Permission(){PermissionId = 33,Title = "حذف سفارش",ParentId = 30},
 
             });
         }

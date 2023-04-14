@@ -26,7 +26,7 @@ namespace Accounting.Mvc.Controllers
         }
 
         [PermissionChecker(4)]
-        public IActionResult UserCreate()
+        public IActionResult Create()
         {
             GetData();
             return View();
@@ -34,7 +34,7 @@ namespace Accounting.Mvc.Controllers
 
 
         [HttpPost]
-        public IActionResult UserCreate(User user, List<int> selectedRoles)
+        public IActionResult Create(User user, List<int> selectedRoles)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace Accounting.Mvc.Controllers
 
 
         [PermissionChecker(5)]
-        public IActionResult UserEdit(int id)
+        public IActionResult Update(int id)
         {
             if (id == 1)
                 return RedirectToAction("Index");
@@ -75,7 +75,7 @@ namespace Accounting.Mvc.Controllers
 
 
         [HttpPost]
-        public IActionResult UserEdit(UserViewModel user, List<int> selectedRoles)
+        public IActionResult Update(UserViewModel user, List<int> selectedRoles)
         {
             if (!ModelState.IsValid)
             {

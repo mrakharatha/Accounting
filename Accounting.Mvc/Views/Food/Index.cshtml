@@ -47,8 +47,8 @@
                                 <thead>
                                     <tr>
                                         <th>ردیف</th>
-                                        <th>کروه منو</th>
                                         <th>عنوان</th>
+                                        <th>گروه منو</th>
                                         <th>قیمت</th>
                                         <th>تاریخ ثبت</th>
                                         <th>عملیات</th>
@@ -59,8 +59,8 @@
                                     {
                                         <tr id="Food_@(item.FoodId)">
                                             <td>@cnt</td>
-                                            <td>@item.GroupMenu.Title</td>
                                             <td>@item.Title</td>
+                                            <td>@item.GroupMenu.Title</td>
                                             <td>@item.Price.ToString("#,0 تومان")</td>
                                             <td>@item.CreateDate.ToShamsi()</td>
                                             <td>

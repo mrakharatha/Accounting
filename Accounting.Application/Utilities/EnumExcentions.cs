@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +17,13 @@ namespace Accounting.Application.Utilities
             return Enum.GetValues(input.GetType()).Cast<T>();
         }
 
+        public static IEnumerable<SelectListItem> GetAllEnumSelectListItem<TBaseType>() where TBaseType : Enum, new()
+        {
+            foreach (TBaseType item in (TBaseType[])Enum.GetValues(typeof(TBaseType)))
+            {
+                yield return new SelectListItem() { Value = item.ToString(), Text = item.ToDisplay() };
+            }
+        }
         public static IEnumerable<T> GetEnumFlags<T>(this T input) where T : struct
         {
             if (!typeof(T).IsEnum)

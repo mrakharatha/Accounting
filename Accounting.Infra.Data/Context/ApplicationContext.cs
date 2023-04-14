@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Accounting.Application.Utilities;
 using Accounting.Domain.Models.Customers;
 using Accounting.Domain.Models.Menus;
+using Accounting.Domain.Models.Orders;
 using Accounting.Domain.Models.Permissions;
 using Accounting.Domain.Models.RawMaterials;
 using Accounting.Domain.Models.Users;
@@ -29,6 +31,8 @@ namespace Accounting.Infra.Data.Context
         public DbSet<GroupMenu> GroupMenus { get; set; }
         public DbSet<Food> Foods { get; set; }
         public DbSet<RawMaterial> RawMaterials { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
@@ -51,9 +55,16 @@ namespace Accounting.Infra.Data.Context
             modelBuilder.Entity<GroupMenu>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<RawMaterial>().HasQueryFilter(c => c.DeleteDate == null);
             modelBuilder.Entity<Food>().HasQueryFilter(c => c.DeleteDate == null);
+            modelBuilder.Entity<Order>().HasQueryFilter(c => c.DeleteDate == null);
 
 
 
+
+            modelBuilder.Entity<Order>().Property(p => p.TypePrice)
+                .HasConversion(p => p.ToString(), p => (TypePrice)Enum.Parse(typeof(TypePrice), p));
+         
+            modelBuilder.Entity<Order>().Property(p => p.TypeService)
+                        .HasConversion(p => p.ToString(), p => (TypeService)Enum.Parse(typeof(TypeService), p));
         }
 
         public override int SaveChanges()

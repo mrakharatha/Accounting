@@ -37,7 +37,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a asp-controller="User" asp-action="UserCreate"  type="button" class="btn btn-primary round mr-1 mb-1">افزودن</a>
+                    <a asp-controller="User" asp-action="Create"  type="button" class="btn btn-primary round mr-1 mb-1">افزودن</a>
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
@@ -65,7 +65,7 @@
                                                     <span style="padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
                                                     </span>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" asp-controller="User" asp-action="UserEdit"  asp-route-id="@item.UserId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+                                                        <a class="dropdown-item" asp-controller="User" asp-action="Update"  asp-route-id="@item.UserId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
                                                         <a class="dropdown-item" onclick="DeleteUser(@item.UserId)"><i class="bx bx-trash mr-1"></i> حذف</a>
                                                     </div>
                                                 </div>
