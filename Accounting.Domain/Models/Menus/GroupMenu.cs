@@ -34,7 +34,6 @@ namespace Accounting.Domain.Models.Menus
 
         public User User { get; set; }
         public ICollection<Food> Foods { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
         #endregion
     }
 }

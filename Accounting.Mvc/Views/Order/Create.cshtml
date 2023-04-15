@@ -1,5 +1,6 @@
 ﻿@using Accounting.Domain.Convertors
 @using Accounting.Application.Interfaces
+@using Accounting.Application.Utilities
 @model Accounting.Domain.Models.Orders.Order
 @inject ICustomerService CustomerService
 @inject IOrderService OrderService
@@ -32,7 +33,7 @@
     </div>
 </div>
 <form method="post">
-
+    <input type="hidden" asp-for="UserId" value="@User.GetUserId()"/>
     <section class="invoice-edit-wrapper">
         <div class="row">
             <!-- invoice view page -->
@@ -88,9 +89,10 @@
                         </div>
                         <div class="card-body pt-50">
                             <!-- product details table-->
+
                             <div class="invoice-product-details ">
                                 <div class="form invoice-item-repeater">
-                                    <div data-repeater-list="group-a">
+                                    <div data-repeater-list="OrderDetails">
                                         <div data-repeater-item>
                                             <div class="row mb-50">
                                                 <div class="col-3 col-md-4 invoice-item-title">غذا</div>
@@ -98,28 +100,32 @@
                                                 <div class="col-3 invoice-item-title">تعداد</div>
                                                 <div class="col-3 col-md-2 invoice-item-title">قیمت نهایی</div>
                                             </div>
-                                            <div class="invoice-item d-flex border rounded mb-1">
-                                                <div class="invoice-item-filed row pt-1 px-1">
+                                            <div class="invoice-item d-flex border rounded mb-1 col-12">
+                                                <div class="invoice-item-filed row pt-1 px-1 col-12">
                                                     <div class="col-12 col-md-4 form-group">
-
-                                                        <select class="form-control invoice-item-select" asp-items="@foods">
+                                                        <select name="OrderDetails[0][FoodId]" class="form-control invoice-item-select" asp-items="@foods">
                                                         </select>
-
                                                     </div>
                                                     <div class="col-md-3 col-12 form-group">
-                                                        <input type="text" class="form-control" placeholder="0">
+                                                        <input name="OrderDetails[0][Price]" type="text" class="form-control" placeholder="0">
                                                     </div>
                                                     <div class="col-md-3 col-12 form-group">
-                                                        <input type="text" class="form-control" placeholder="0">
+                                                        <input name="OrderDetails[0][Count]" type="text" class="form-control" placeholder="0">
                                                     </div>
                                                     <div class="col-md-2 col-12 form-group">
-                                                        <strong class="text-primary align-middle">0 تومان</strong>
+                                                        <input name="OrderDetails[0][FinalPrice]" class="form-control" placeholder="0">
                                                     </div>
+
+                                                </div>
+                                                <div class="invoice-icon d-flex flex-column justify-content-between border-left p-25">
+                                                    <span class="cursor-pointer" data-repeater-delete>
+                                                        <i class="bx bx-x"></i>
+                                                    </span>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="col p-0">
                                             <button class="btn btn-light-primary btn-sm" data-repeater-create type="button">
@@ -130,6 +136,8 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            
                             <!-- invoice subtotal -->
                             <hr>
                             <div class="invoice-subtotal pt-50">
@@ -185,8 +193,7 @@
     {
     <link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/pages/app-invoice.css">
-
-}
+    }
 @section Script
     {
 

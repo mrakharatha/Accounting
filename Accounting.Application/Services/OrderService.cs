@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Accounting.Application.Interfaces;
 using Accounting.Application.Utilities;
 using Accounting.Domain.Interfaces;
+using Accounting.Domain.Models.Orders;
 using Accounting.Domain.ViewModel.DataTable;
 using Accounting.Domain.ViewModel.Orders;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,6 +34,11 @@ namespace Accounting.Application.Services
         public List<SelectListItem> GetTypeService()
         {
             return EnumExtensions.GetAllEnumSelectListItem<TypeService>().ToList();
+        }
+
+        public void Add(Order order)
+        {
+            _orderRepository.Add(order);
         }
     }
 }

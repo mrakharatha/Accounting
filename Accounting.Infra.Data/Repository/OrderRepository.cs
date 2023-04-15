@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Accounting.Application.Utilities;
 using Accounting.Domain.Convertors;
 using Accounting.Domain.Interfaces;
+using Accounting.Domain.Models.Orders;
 using Accounting.Domain.ViewModel.Customers;
 using Accounting.Domain.ViewModel.DataTable;
 using Accounting.Domain.ViewModel.Orders;
@@ -61,6 +62,12 @@ namespace Accounting.Infra.Data.Repository
 
                     .ToListAsync()
             };
+        }
+
+        public void Add(Order order)
+        {
+            _context.Add(order);
+            _context.SaveChanges();
         }
     }
 }

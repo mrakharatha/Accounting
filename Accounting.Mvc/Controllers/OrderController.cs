@@ -1,4 +1,5 @@
-﻿using Accounting.Application.Interfaces;
+﻿using System.Linq;
+using Accounting.Application.Interfaces;
 using Accounting.Application.Security;
 using Accounting.Application.Services;
 using Accounting.Domain.ViewModel.DataTable;
@@ -33,9 +34,13 @@ namespace Accounting.Mvc.Controllers
         [HttpPost]
         public IActionResult Create(Order order)
         {
-            if (!ModelState.IsValid)
-                return View(order);
+            order.OrderDetails.Remove(order.OrderDetails.FirstOrDefault());
+            order.OrderDetails.ToList().RemoveAll(x => x.FoodId == 0);
+            //if (!ModelState.IsValid)
+            //    return View(order);
 
+
+            _orderService.Add(order);
 
             return RedirectToAction("Index");
         }
