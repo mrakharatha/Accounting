@@ -18,6 +18,10 @@ namespace Accounting.Domain.Models.Orders
         [Display(Name = "شماره فاکتور")]
         public string InvoiceNumber { get; set; }
 
+        public string Phone { get; set; }
+        public string Address { get; set; }
+
+
         [Display(Name = "نحوه ی پرداخت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         public TypePrice TypePrice { get; set; }

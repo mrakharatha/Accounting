@@ -57,7 +57,7 @@ namespace Accounting.Application.Services
 
             var items = new List<SelectListItem>()
             {
-                new SelectListItem() { Value = null, Text = "لطفا انتخاب کنید" }
+                new SelectListItem() { Value = null, Text = "لطفا انتخاب کنید",Selected = true}
             };
 
             items.AddRange(result);

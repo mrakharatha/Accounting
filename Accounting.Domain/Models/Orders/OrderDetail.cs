@@ -7,6 +7,7 @@ namespace Accounting.Domain.Models.Orders
     {
         [Key]
         public int OrderDetailId { get; set; }
+        public int GroupMenuId { get; set; }
 
         public int OrderId { get; set; }
 
@@ -22,7 +23,7 @@ namespace Accounting.Domain.Models.Orders
 
         public Order Order { get; set; }
         public Food Food { get; set; }
-
+        public GroupMenu GroupMenu { get; set; }
         #endregion
     }
 }

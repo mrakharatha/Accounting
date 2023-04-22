@@ -44,16 +44,15 @@ namespace Accounting.Infra.Data.Repository
             _context.SaveChanges();
         }
 
-        public List<SelectListItem> GetSelectListItem()
+        public List<SelectListItem> GetSelectListItem(int groupMenuId)
         {
             return _context.Foods
-                .Include(x => x.GroupMenu)
-                .OrderByDescending(x => x.GroupMenuId)
-                .ThenByDescending(x=> x.FoodId)
+                .Where(x=> x.GroupMenuId==groupMenuId)
+                .OrderByDescending(x => x.FoodId)
                 .Select(x => new SelectListItem()
                 {
                     Value = x.FoodId.ToString(),
-                    Text = x.Title+" - "+ x.GroupMenu.Title
+                    Text = x.Title
                 })
                 .ToList();
         }

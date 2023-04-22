@@ -4,11 +4,11 @@
 @model Accounting.Domain.Models.Orders.Order
 @inject ICustomerService CustomerService
 @inject IOrderService OrderService
-@inject IFoodService FoodService
+@inject IGroupMenuService GroupMenuService
 @{
     ViewData["Title"] = "ثبت سفارش";
 
-    var foods = FoodService.GetSelectListItem();
+    var groupMenus = GroupMenuService.GetSelectListItem();
 }
 
 <div class="content-header row">
@@ -78,10 +78,10 @@
                                         </div>
                                     </fieldset>
                                     <fieldset class="invoice-address form-group">
-                                        <input type="text" id="phone" name="phone" class="form-control" placeholder="تلفن">
+                                        <input type="text" asp-for="Phone" class="form-control" placeholder="تلفن">
                                     </fieldset>
                                     <fieldset class="invoice-address form-group">
-                                        <textarea class="form-control" id="address" name="address" rows="4" placeholder="آدرس"></textarea>
+                                        <textarea class="form-control" asp-for="Address" rows="2" placeholder="آدرس"></textarea>
                                     </fieldset>
                                 </div>
                             </div>
@@ -89,39 +89,44 @@
                         </div>
                         <div class="card-body pt-50">
                             <!-- product details table-->
-
                             <div class="invoice-product-details ">
                                 <div class="form invoice-item-repeater">
                                     <div data-repeater-list="OrderDetails">
-                                        <div data-repeater-item>
+                                        <div class="removeStyle" data-repeater-item >
                                             <div class="row mb-50">
-                                                <div class="col-3 col-md-4 invoice-item-title">غذا</div>
-                                                <div class="col-3 invoice-item-title">قیمت</div>
-                                                <div class="col-3 invoice-item-title">تعداد</div>
-                                                <div class="col-3 col-md-2 invoice-item-title">قیمت نهایی</div>
+                                                <div class="col-3 invoice-item-title">گروه منو</div>
+                                                <div class="col-3 invoice-item-title">غذا</div>
+                                                <div class="col-2 invoice-item-title">قیمت</div>
+                                                <div class="col-2 invoice-item-title">تعداد</div>
+                                                <div class="col-2  invoice-item-title">قیمت نهایی</div>
                                             </div>
                                             <div class="invoice-item d-flex border rounded mb-1 col-12">
                                                 <div class="invoice-item-filed row pt-1 px-1 col-12">
-                                                    <div class="col-12 col-md-4 form-group">
-                                                        <select name="OrderDetails[0][FoodId]" class="form-control invoice-item-select" asp-items="@foods">
+                                                    <div class="col-md-3 col-12  form-group">
+                                                        <select name="OrderDetails[0][GroupMenuId]" class="form-control " asp-items="@groupMenus" onchange="GetFoods(event)">
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3 col-12 form-group">
-                                                        <input name="OrderDetails[0][Price]" type="text" class="form-control" placeholder="0">
-                                                    </div>
-                                                    <div class="col-md-3 col-12 form-group">
-                                                        <input name="OrderDetails[0][Count]" type="text" class="form-control" placeholder="0">
-                                                    </div>
-                                                    <div class="col-md-2 col-12 form-group">
-                                                        <input name="OrderDetails[0][FinalPrice]" class="form-control" placeholder="0">
+                                                    <div class="col-md-3 col-12  form-group">
+                                                        <select name="OrderDetails[0][FoodId]" class="form-control"  onchange="GetFood(event)">
+                                                        </select>
                                                     </div>
 
+                                                    <div class="col-md-2 col-12 form-group">
+                                                        <input name="OrderDetails[0][Price]" type="number" readonly="readonly" class="form-control" placeholder="0">
+                                                    </div>
+                                                    <div class="col-md-2 col-12 form-group">
+                                                        <input name="OrderDetails[0][Count]" type="number" class="form-control" placeholder="0">
+                                                    </div>
+                                                    <div class="col-md-2 col-12 form-group">
+                                                        <input name="OrderDetails[0][FinalPrice]" readonly="readonly" class="form-control" placeholder="0">
+                                                    </div>
+
+                                                    
                                                 </div>
-                                                <div class="invoice-icon d-flex flex-column justify-content-between border-left p-25">
+                                                <div data-repeater-delete  class=" cursor-pointer invoice-icon d-flex flex-column justify-content-between border-left p-25">
                                                     <span class="cursor-pointer" data-repeater-delete>
-                                                        <i class="bx bx-x"></i>
+                                                        <i class="bx bx-x" data-repeater-delete></i>
                                                     </span>
-                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -195,11 +200,82 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/pages/app-invoice.css">
     }
 @section Script
-    {
+{
 
     <script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
     <script src="/assets/js/scripts/forms/select/form-select2.js"></script>
 
     <script src="/assets/vendors/js/forms/repeater/jquery.repeater.min.js"></script>
     <script src="/assets/js/scripts/pages/app-invoice.js"></script>
+    
+    <script>
+
+        $(document).ready(function () {
+            $('.removeStyle').css('display', 'block');
+        });
+
+    </script>
+
+    <script>
+        $("#CustomerId").change(function () {
+            $("#Phone").val('');
+            $("#Address").val('');
+            $.getJSON("/Home/GetCustomer/" + $("#CustomerId :selected").val(),
+                function (data) {
+                  if(data){
+                        $("#Phone").val(data.phone);
+                        $("#Address").val(data.address);
+                    }
+                });
+        });
+    </script>
+    <script>
+        function GetFoods(e) {
+
+            var val = e.target.value;
+            if (!val) {
+                return;
+            }
+
+            var name = e.target.name;
+            name = name.replace('[GroupMenuId]', '[FoodId]');
+
+            $(`select[name="${name}"]`).empty();
+
+            $.getJSON("/Home/GetFoods/" + val,
+                function (data) {
+                    $.each(data,
+                        function () {
+                            $(`select[name="${name}"]`).append('<option value=' + this.value + '>' + this.text + '</option>');
+                        });
+
+                });
+
+
+        }
+    </script>
+
+    <script>
+        function GetFood(e) {
+
+            var val = e.target.value;
+            if (!val) {
+                return;
+            }
+
+            var name = e.target.name;
+            name = name.replace('[FoodId]', '[Price]');
+
+            $(`input[name="${name}"]`).val('');
+
+            $.getJSON("/Home/GetFood/" + val,
+                function (data) {
+                    if(data){
+                        $(`input[name="${name}"]`).val(data.price);
+                    }
+                });
+
+
+        }
+    </script>
 }

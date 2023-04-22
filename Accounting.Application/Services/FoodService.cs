@@ -51,9 +51,17 @@ namespace Accounting.Application.Services
             Update(food);
         }
 
-        public List<SelectListItem> GetSelectListItem()
+        public List<SelectListItem> GetSelectListItem(int groupMenuId)
         {
-           return _foodRepository.GetSelectListItem();
+            var result = _foodRepository.GetSelectListItem(groupMenuId);
+
+            var items = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value = null, Text = "لطفا انتخاب کنید" }
+            };
+
+            items.AddRange(result);
+            return items;
         }
     }
 }

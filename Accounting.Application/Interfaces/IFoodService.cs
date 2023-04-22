@@ -11,6 +11,6 @@ namespace Accounting.Application.Interfaces
         void Add(Food food);
         void Update(Food food);
         void Delete(int foodId, int userId);
-        List<SelectListItem> GetSelectListItem();
+        List<SelectListItem> GetSelectListItem(int groupMenuId);
     }
 }

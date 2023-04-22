@@ -4,14 +4,16 @@ using Accounting.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Accounting.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230422034036_AddColumnsTblOrder")]
+    partial class AddColumnsTblOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,9 +207,6 @@ namespace Accounting.Infra.Data.Migrations
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GroupMenuId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -217,8 +216,6 @@ namespace Accounting.Infra.Data.Migrations
                     b.HasKey("OrderDetailId");
 
                     b.HasIndex("FoodId");
-
-                    b.HasIndex("GroupMenuId");
 
                     b.HasIndex("OrderId");
 
@@ -667,12 +664,6 @@ namespace Accounting.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Accounting.Domain.Models.Menus.GroupMenu", "GroupMenu")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("GroupMenuId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Accounting.Domain.Models.Orders.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
@@ -680,8 +671,6 @@ namespace Accounting.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Food");
-
-                    b.Navigation("GroupMenu");
 
                     b.Navigation("Order");
                 });
@@ -755,8 +744,6 @@ namespace Accounting.Infra.Data.Migrations
             modelBuilder.Entity("Accounting.Domain.Models.Menus.GroupMenu", b =>
                 {
                     b.Navigation("Foods");
-
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("Accounting.Domain.Models.Orders.Order", b =>
