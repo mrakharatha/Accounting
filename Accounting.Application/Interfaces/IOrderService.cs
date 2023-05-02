@@ -14,5 +14,6 @@ namespace Accounting.Application.Interfaces
         List<SelectListItem> GetTypePrice();
         List<SelectListItem> GetTypeService();
         void Add(Order order);
+        string GetInvoiceNumber();
     }
 }

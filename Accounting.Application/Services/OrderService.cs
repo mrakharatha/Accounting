@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Accounting.Application.Interfaces;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Accounting.Application.Services
 {
-    public class OrderService: IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
 
@@ -39,6 +40,13 @@ namespace Accounting.Application.Services
         public void Add(Order order)
         {
             _orderRepository.Add(order);
+        }
+
+        public string GetInvoiceNumber()
+        {
+            var invoiceNumber = _orderRepository.GetInvoiceNumber(DateTime.Now);
+
+            return "#" + (invoiceNumber + 1).ToString("00");
         }
     }
 }

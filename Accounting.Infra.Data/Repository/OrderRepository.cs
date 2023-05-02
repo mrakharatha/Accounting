@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Accounting.Application.Utilities;
 using Accounting.Domain.Convertors;
@@ -68,6 +69,11 @@ namespace Accounting.Infra.Data.Repository
         {
             _context.Add(order);
             _context.SaveChanges();
+        }
+
+        public int GetInvoiceNumber(DateTime dateTime)
+        {
+            return _context.Orders.Count(x => x.CreateDate.Date == dateTime.Date);
         }
     }
 }

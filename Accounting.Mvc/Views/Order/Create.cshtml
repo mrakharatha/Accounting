@@ -33,7 +33,7 @@
     </div>
 </div>
 <form method="post">
-    <input type="hidden" asp-for="UserId" value="@User.GetUserId()"/>
+    <input type="hidden" asp-for="UserId" value="@User.GetUserId()" />
     <section class="invoice-edit-wrapper">
         <div class="row">
             <!-- invoice view page -->
@@ -45,7 +45,7 @@
                             <div class="row mx-0">
                                 <div class="col-xl-4 col-md-12 d-flex align-items-center pl-0">
                                     <h6 class="invoice-number mr-75 mb-0">صورتحساب</h6>
-                                    <input type="text" class="form-control pt-25 w-50" placeholder="#000">
+                                    <input type="text" readonly="readonly" asp-for="InvoiceNumber" class="form-control pt-25 w-50" value="@OrderService.GetInvoiceNumber()">
                                 </div>
                                 <div class="col-xl-8 col-md-12 px-0 pt-xl-0 pt-1">
                                     <div class="invoice-date-picker d-flex align-items-center justify-content-xl-end flex-wrap">
@@ -92,7 +92,7 @@
                             <div class="invoice-product-details ">
                                 <div class="form invoice-item-repeater">
                                     <div data-repeater-list="OrderDetails">
-                                        <div class="removeStyle" data-repeater-item >
+                                        <div class="removeStyle" data-repeater-item>
                                             <div class="row mb-50">
                                                 <div class="col-3 invoice-item-title">گروه منو</div>
                                                 <div class="col-3 invoice-item-title">غذا</div>
@@ -107,7 +107,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3 col-12  form-group">
-                                                        <select name="OrderDetails[0][FoodId]" class="form-control"  onchange="GetFood(event)">
+                                                        <select name="OrderDetails[0][FoodId]" class="form-control" onchange="GetFood(event)">
                                                         </select>
                                                     </div>
 
@@ -115,15 +115,15 @@
                                                         <input name="OrderDetails[0][Price]" type="number" readonly="readonly" class="form-control" placeholder="0">
                                                     </div>
                                                     <div class="col-md-2 col-12 form-group">
-                                                        <input name="OrderDetails[0][Count]" type="number" class="form-control" placeholder="0">
+                                                        <input name="OrderDetails[0][Count]" autocomplete="off" type="number" class="form-control" placeholder="0" onkeyup="GetFinalPrice(event)" onkeydown="GetFinalPrice(event)" onkeypress="GetFinalPrice(event)" onblur="GetFinalPrice(event)">
                                                     </div>
                                                     <div class="col-md-2 col-12 form-group">
-                                                        <input name="OrderDetails[0][FinalPrice]" readonly="readonly" class="form-control" placeholder="0">
+                                                        <input name="OrderDetails[0][FinalPrice]" data-position="FinalPrice" readonly="readonly" class="form-control" placeholder="0">
                                                     </div>
 
-                                                    
+
                                                 </div>
-                                                <div data-repeater-delete  class=" cursor-pointer invoice-icon d-flex flex-column justify-content-between border-left p-25">
+                                                <div data-repeater-delete class=" cursor-pointer invoice-icon d-flex flex-column justify-content-between border-left p-25">
                                                     <span class="cursor-pointer" data-repeater-delete>
                                                         <i class="bx bx-x" data-repeater-delete></i>
                                                     </span>
@@ -141,8 +141,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <!-- invoice subtotal -->
                             <hr>
                             <div class="invoice-subtotal pt-50">
@@ -156,9 +156,9 @@
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item d-flex justify-content-between border-0 py-0">
                                                 <span class="invoice-subtotal-title">جمع صورتحساب</span>
-                                                <h6 class="invoice-subtotal-value mb-0">0 تومان</h6>
+                                                <h6 class="invoice-subtotal-value mb-0" id="BillTotal">0 تومان</h6>
                                             </li>
-                                           
+
                                         </ul>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
 
     <script src="/assets/vendors/js/forms/repeater/jquery.repeater.min.js"></script>
     <script src="/assets/js/scripts/pages/app-invoice.js"></script>
-    
+
     <script>
 
         $(document).ready(function () {
@@ -222,7 +222,7 @@
             $("#Address").val('');
             $.getJSON("/Home/GetCustomer/" + $("#CustomerId :selected").val(),
                 function (data) {
-                  if(data){
+                    if (data) {
                         $("#Phone").val(data.phone);
                         $("#Address").val(data.address);
                     }
@@ -238,19 +238,31 @@
             }
 
             var name = e.target.name;
-            name = name.replace('[GroupMenuId]', '[FoodId]');
+            var food = name.replace('[GroupMenuId]', '[FoodId]');
 
-            $(`select[name="${name}"]`).empty();
+            $(`select[name="${food}"]`).empty();
 
             $.getJSON("/Home/GetFoods/" + val,
                 function (data) {
                     $.each(data,
                         function () {
-                            $(`select[name="${name}"]`).append('<option value=' + this.value + '>' + this.text + '</option>');
+                            $(`select[name="${food}"]`).append('<option value=' + this.value + '>' + this.text + '</option>');
                         });
 
                 });
 
+            var price = food.replace('[FoodId]', '[Price]');
+
+            $(`input[name="${price}"]`).val(null);
+
+            var count = price.replace('[Price]', '[Count]');
+
+            $(`input[name="${count}"]`).val(null);
+
+            var finalPrice = count.replace('[Count]', '[FinalPrice]');
+
+            $(`input[name="${finalPrice}"]`).val(0);
+            Calculation();
 
         }
     </script>
@@ -264,18 +276,75 @@
             }
 
             var name = e.target.name;
-            name = name.replace('[FoodId]', '[Price]');
+            var price = name.replace('[FoodId]', '[Price]');
 
-            $(`input[name="${name}"]`).val('');
+            $(`input[name="${price}"]`).val('');
 
             $.getJSON("/Home/GetFood/" + val,
                 function (data) {
-                    if(data){
-                        $(`input[name="${name}"]`).val(data.price);
+                    if (data) {
+                        $(`input[name="${price}"]`).val(data.price);
                     }
                 });
 
 
+            var count = price.replace('[Price]', '[Count]');
+
+            $(`input[name="${count}"]`).val(null);
+
+            var finalPrice = count.replace('[Count]', '[FinalPrice]');
+
+            $(`input[name="${finalPrice}"]`).val(0);
+            Calculation();
+
         }
     </script>
+
+    <script>
+        function GetFinalPrice(e) {
+
+            var val = e.target.value;
+            var name = e.target.name;
+
+            var finalPrice = name.replace('[Count]', '[FinalPrice]');
+            if (!val) {
+                $(`input[name="${finalPrice}"]`).val(0);
+                            Calculation();
+                return;
+            }
+
+
+
+            var nameCount = name;
+            var namePrice = name.replace('[Count]', '[Price]');
+
+
+
+            var count = $(`input[name="${nameCount}"]`).val();
+            var price = $(`input[name="${namePrice}"]`).val();
+
+
+            $(`input[name="${finalPrice}"]`).val(count * price);
+            Calculation();
+        }
+
+        function Calculation() {
+
+            var total = 0;
+
+            $.each($("[data-position=FinalPrice]"), function (index, item) {
+                total+=parseInt(item.value);
+            });
+
+
+
+
+            $("#BillTotal").html(`${String(total).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} تومان`);
+        }
+
+
+
+
+    </script>
+
 }

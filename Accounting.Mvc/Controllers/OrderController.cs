@@ -34,10 +34,10 @@ namespace Accounting.Mvc.Controllers
         [HttpPost]
         public IActionResult Create(Order order)
         {
-            order.OrderDetails.Remove(order.OrderDetails.FirstOrDefault());
             order.OrderDetails.ToList().RemoveAll(x => x.FoodId == 0);
-            //if (!ModelState.IsValid)
-            //    return View(order);
+            order.OrderDetails.ToList().RemoveAll(x => x.Count == 0);
+            if (!ModelState.IsValid)
+                return View(order);
 
 
             _orderService.Add(order);

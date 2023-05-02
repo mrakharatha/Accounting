@@ -1,4 +1,5 @@
-﻿using Accounting.Domain.Models.Orders;
+﻿using System;
+using Accounting.Domain.Models.Orders;
 using Accounting.Domain.ViewModel.DataTable;
 using Accounting.Domain.ViewModel.Orders;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace Accounting.Domain.Interfaces
     {
         Task<DtResult<OrderViewModel>> GetData(DtParameters dtParameters);
         void Add(Order order);
+        int GetInvoiceNumber(DateTime dateTime);
 
     }
 }

@@ -152,13 +152,11 @@
                 <span style = "padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
                 </span>
                 <div class="dropdown-menu">
-                <a class="dropdown-item"   href="/Order/Update/${aData.orderId}"  ><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+                <a class="dropdown-item"   href="/Order/View/${aData.orderId}"  ><i class="bx bx-edit-alt mr-1"></i> مشاهده</a>
                 <a class="dropdown-item" onclick="DeleteOrder(${aData.orderId})"><i class="bx bx-trash mr-1"></i> حذف</a>
                 </div>
                 </div>`);
                 }
-
-
             });
 
         });
